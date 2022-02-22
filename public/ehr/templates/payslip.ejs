@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+    <style>
+        .table {
+            width: 75%;
+            height: auto;
+            color: #1b487d;
+        }
+
+        .table>tbody {
+            border: 1px solid #1b487d;
+        }
+
+        .table>tbody>tr:first-child>td {
+            border: 1px solid #1b487d;
+            background-color: #e1ecf2 !important;
+            color: #1b487d !important;
+        }
+
+        .table>tbody>tr:nth-child(4)>td:nth-child(5),
+        .table>tbody>tr:nth-child(7)>td:nth-child(5) {
+            background-color: #e1ecf2 !important;
+        }
+
+        .table>tbody>tr:last-child>td:nth-child(1),
+        .table>tbody>tr:last-child>td:nth-child(3),
+        .table>tbody>tr:last-child>td:nth-child(5) {
+            background-color: #256499 !important;
+            color: #ffffff !important;
+        }
+
+        .table>thead>tr>td {
+            font-size: 10px;
+        }
+
+        .table>tbody>tr>td {
+            border: 1px dotted #1b487d;
+            font-size: 8px;
+        }
+
+        .text-right {
+            text-align: right !important;
+        }
+
+        .text-center {
+            text-align: center !important;
+        }
+    </style>
+</head>
+
+<body>
+    <% 
+    function numberFormatter(value){
+        var number = parseInt(value);
+        return number.toLocaleString();
+    } 
+
+    function moneyFormatter(value){
+        var money = parseFloat(value);
+        return money.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2});
+    }
+    
+    %>
+
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="d-flex justify-content-center">
+                        <table class="table table-sm table-borderless" cellspacing="0">
+                            <thead class="borderless">
+                                <tr>
+                                    <td rowspan="3" class="text-center align-middle">
+                                        <img src="http://localhost:3000/images/logo.png"
+                                            style="width: 60px; height: 60px;">
+                                    </td>
+                                    <td colspan="5" class="font-weight-bold">
+                                        Savan Legend Resorts Sole Company Limited
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5" class="font-weight-bold">
+                                        Nongdeune Village, Kaysone Phomvihane City, Savanakhet Province, Laos P.D.R
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5" class="font-weight-bold">
+                                        Tel:(+856) 2022300588; www.savanresorts.com
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="6" class="text-center font-weight-bold py-2">
+                                        PAYROLL SLIP
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td height="30"><strong>ID:</strong>
+                                        <%= payroll.empId %>
+                                    </td>
+                                    <td colspan="2"><strong>Position:</strong>
+                                        <%= payroll.jobTitle %>
+                                    </td>
+                                    <td colspan="2"><strong>Currency:</strong>
+                                        <%= payroll.currency %>
+                                    </td>
+                                    <td class="noborder text-right"><strong>Period:</strong>
+                                        <%= payroll.monthName %>, <%= payroll.yearCode %>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td height="30"><strong>Name:</strong>
+                                        <%= payroll.fname %>
+                                            <%= payroll.lname %>
+                                    </td>
+                                    <td colspan="2">
+                                        <strong>Dept:</strong>
+                                        <%= payroll.dept %>
+                                    </td>
+                                    <td colspan="3" class="font-weight-bold">
+                                        Basic Salary: <%= moneyFormatter(payroll.baseSalary || 0 ) %>
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="text-center">
+                                        <strong>INCOMES</strong>
+                                    </td>
+                                    <td class="text-center"><strong>AMOUNT</strong></td>
+                                    <td class="text-center">
+                                        <strong>DEDUCTIONS</strong>
+                                    </td>
+                                    <td class="text-center">
+                                        <strong>AMOUNT</strong>
+                                    </td>
+                                    <td colspan="2" class="text-center font-weight-bold">WORKING</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center">Earning</td>
+                                    <td class="text-right">
+                                        <%= moneyFormatter(payroll.earning || 0 ) %>
+                                    </td>
+                                    <td class="text-center">Salary Advance</td>
+                                    <td class="text-right">
+                                        <%= moneyFormatter(payroll.avdDeduct || 0 ) %>
+                                    </td>
+                                    <td colspan="2" class="text-center">
+                                        Days: <%= numberFormatter(payroll.workDays || 0 ) %>&ensp;
+                                            Hours: <%= numberFormatter(payroll.workHours || 0 ) %>&ensp;
+                                                Mins: <%= numberFormatter(payroll.workMins || 0 ) %>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center">OT.1.5</td>
+                                    <td class="text-right">
+                                        <%= moneyFormatter(payroll.ot150 || 0 ) %>
+                                    </td>
+                                    <td class="text-center">OC Excess</td>
+                                    <td class="text-right">
+                                        <%= moneyFormatter(payroll.oceDeduct || 0 ) %>
+                                    </td>
+                                    <td colspan="2">&nbsp; </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center">OT.2</td>
+                                    <td class="text-right">
+                                        <%= moneyFormatter(payroll.ot200 || 0 ) %>
+                                    </td>
+                                    <td class="text-center">My Mart</td>
+                                    <td class="text-right">
+                                        <%= moneyFormatter(payroll.mymDeduct || 0 ) %>
+                                    </td>
+                                    <td colspan="2" class="text-center font-weight-bold">
+                                        ATTENDANCE
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center">OT.2.5</td>
+                                    <td class="text-right">
+                                        <%= moneyFormatter(payroll.ot250 || 0 ) %>
+                                    </td>
+                                    <td class="text-center">Supplies-ID</td>
+                                    <td class="text-right">
+                                        <%= moneyFormatter(payroll.supDeduct || 0 ) %>
+                                    </td>
+                                    <td colspan="2" class="text-center">
+                                        Late Min: <%= numberFormatter(payroll.lateMins || 0 ) %>&emsp;&emsp;
+                                            Early Min: <%= numberFormatter(payroll.earlyMins || 0 ) %>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center">OT.3</td>
+                                    <td class="text-right">
+                                        <%= moneyFormatter(payroll.ot300 || 0 ) %>
+                                    </td>
+                                    <td class="text-center">Uniform-key</td>
+                                    <td class="text-right">
+                                        <%= moneyFormatter(payroll.unfDeduct || 0 ) %>
+                                    </td>
+                                    <td colspan="2"></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center">&nbsp;</td>
+                                    <td class="text-center">&nbsp;</td>
+                                    <td class="text-center">Water/Electricity</td>
+                                    <td class="text-right">
+                                        <%= moneyFormatter(payroll.weDeduct || 0 ) %>
+                                    </td>
+                                    <td colspan="2" class="text-center font-weight-bold">LEAVE</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center">&nbsp;</td>
+                                    <td class="text-center">&nbsp;</td>
+                                    <td class="text-center">SSO</td>
+                                    <td class="text-right">
+                                        <%= moneyFormatter(payroll.ssoDeduct || 0 ) %>
+                                    </td>
+                                    <td colspan="2" class="text-center">
+                                        AB: <%= numberFormatter(payroll.abDeduct || 0 ) %>&emsp;&emsp;
+                                            UL: <%= numberFormatter(payroll.ulDeduct || 0 ) %>&emsp;&emsp;
+                                                AL: <%= numberFormatter(payroll.al || 0 ) %>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center">&nbsp;</td>
+                                    <td class="text-center">&nbsp;</td>
+                                    <td class="text-center">Tax</td>
+                                    <td class="text-right">
+                                        <%= moneyFormatter(payroll.taxDeduct || 0 ) %>
+                                    </td>
+                                    <td colspan="2" class="font-weight-bold">
+                                        (YTD Income): <%= moneyFormatter(payroll.ytdIncome || 0 ) %>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center">&nbsp;</td>
+                                    <td class="text-center">&nbsp;</td>
+                                    <td class="text-center">Other</td>
+                                    <td class="text-right">
+                                        <%= moneyFormatter(payroll.othDeduct || 0 ) %>
+                                    </td>
+                                    <td colspan="2" class="font-weight-bold">
+                                        (YTD SSO): <%= moneyFormatter(payroll.ytdSso || 0 ) %>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right">&nbsp;</td>
+                                    <td class="text-right">&nbsp;</td>
+                                    <td class="text-right">&nbsp;</td>
+                                    <td class="text-center">&nbsp;</td>
+                                    <td colspan="2" class="font-weight-bold">
+                                        (YTD Tax): <%= moneyFormatter(payroll.ytdTax || 0 ) %>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right">
+                                        <strong>Total Income</strong>
+                                    </td>
+                                    <td class="text-right font-weight-bold">
+                                        <%= moneyFormatter(payroll.totalIncome || 0 ) %>
+                                    </td>
+                                    <td class="text-right">
+                                        <strong>Total Deduction</strong>
+                                    </td>
+                                    <td class="text-right font-weight-bold">
+                                        <%= moneyFormatter(payroll.totalDeduct || 0 ) %>
+                                    </td>
+                                    <td class="text-right">
+                                        <strong>Net Income</strong>
+                                    </td>
+                                    <td class="text-right font-weight-bold">
+                                        <% var netIncome = parseFloat(payroll.totalIncome) - parseFloat(payroll.totalDeduct || 0 ) %>
+                                            <%= moneyFormatter(netIncome || 0 ) %>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+</body>
+
+</html>
